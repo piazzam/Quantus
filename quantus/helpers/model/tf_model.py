@@ -5,8 +5,11 @@
 # Quantus is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
 # You should have received a copy of the GNU Lesser General Public License along with Quantus. If not, see <https://www.gnu.org/licenses/>.
 # Quantus project URL: <https://github.com/understandable-machine-intelligence-lab/Quantus>.
-
 from __future__ import annotations
+
+import sys
+
+sys.path.append("quotient_game_paper/")
 
 from typing import Dict, Optional, Tuple, List, Union, Generator
 from keras.layers import Dense
@@ -19,8 +22,8 @@ from warnings import warn
 from cachetools import cachedmethod, LRUCache
 import operator
 
-from quantus.helpers.model.model_interface import ModelInterface
-from quantus.helpers import utils
+from Quantusmain.quantus.helpers.model.model_interface import ModelInterface
+from Quantusmain.quantus.helpers import utils
 
 
 class TensorFlowModel(ModelInterface[Model]):

@@ -6,22 +6,27 @@
 # You should have received a copy of the GNU Lesser General Public License along with Quantus. If not, see <https://www.gnu.org/licenses/>.
 # Quantus project URL: <https://github.com/understandable-machine-intelligence-lab/Quantus>.
 import sys
+
+sys.path.append("quotient_game_paper/")
+
+import sys
 from typing import Any, Callable, Dict, List, Optional
 
 import numpy as np
 
-from quantus.functions.perturb_func import batch_baseline_replacement_by_indices
-from quantus.functions.similarity_func import correlation_pearson
-from quantus.helpers import asserts, warn
-from quantus.helpers.enums import (
+from Quantusmain.quantus.functions.perturb_func import batch_baseline_replacement_by_indices
+from Quantusmain.quantus.functions.similarity_func import correlation_pearson
+from Quantusmain.quantus.helpers import asserts, warn
+from Quantusmain.quantus.helpers.enums import (
     DataType,
     EvaluationCategory,
     ModelType,
     ScoreDirection,
 )
-from quantus.helpers.model.model_interface import ModelInterface
-from quantus.helpers.perturbation_utils import make_perturb_func
-from quantus.metrics.base import Metric
+from Quantusmain.quantus.helpers.model.model_interface import ModelInterface
+from Quantusmain.quantus.helpers.perturbation_utils import make_perturb_func
+#from quantus.metrics.base import Metric
+from Quantusmain.quantus.metrics.base import Metric
 
 if sys.version_info >= (3, 8):
     from typing import final
@@ -300,6 +305,7 @@ class FaithfulnessCorrelation(Metric[List[float]]):
         x_batch: np.ndarray,
         y_batch: np.ndarray,
         a_batch: np.ndarray,
+        channel_first: bool = True,
         **kwargs,
     ) -> List[float]:
         """
@@ -334,7 +340,9 @@ class FaithfulnessCorrelation(Metric[List[float]]):
         n_features = a_batch.shape[-1]
 
         # Predict on input.
-        x_input = model.shape_input(x_batch, x_batch.shape, channel_first=True, batched=True)
+        #x_input = model.shape_input(x_batch, x_batch.shape, channel_first=True, batched=True)
+        x_input = model.shape_input(x_batch, x_batch.shape, channel_first=channel_first, batched=True)
+
         y_pred = model.predict(x_input)[np.arange(batch_size), y_batch]
 
         pred_deltas = []
@@ -359,7 +367,7 @@ class FaithfulnessCorrelation(Metric[List[float]]):
                 warn.warn_perturbation_caused_no_change(x=x_element, x_perturbed=x_perturbed_element)
 
             # Predict on perturbed input x.
-            x_input = model.shape_input(x_perturbed, x_batch.shape, channel_first=True, batched=True)
+            x_input = model.shape_input(x_perturbed, x_batch.shape, channel_first=channel_first, batched=True)
             y_pred_perturb = model.predict(x_input)[np.arange(batch_size), y_batch]
             pred_deltas.append(y_pred - y_pred_perturb)
 

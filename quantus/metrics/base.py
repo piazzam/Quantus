@@ -7,6 +7,10 @@
 
 from __future__ import annotations
 
+import sys
+
+sys.path.append("quotient_game_paper/")
+
 import functools
 import logging
 import os
@@ -33,15 +37,15 @@ import numpy as np
 from sklearn.utils import gen_batches
 from tqdm.auto import tqdm
 
-from quantus.helpers import asserts, utils, warn
-from quantus.functions.normalise_func import normalise_by_max
-from quantus.helpers.enums import (
+from Quantusmain.quantus.helpers import asserts, utils, warn
+from Quantusmain.quantus.functions.normalise_func import normalise_by_max
+from Quantusmain.quantus.helpers.enums import (
     DataType,
     EvaluationCategory,
     ModelType,
     ScoreDirection,
 )
-from quantus.helpers.model.model_interface import ModelInterface
+from Quantusmain.quantus.helpers.model.model_interface import ModelInterface
 
 if sys.version_info >= (3, 8):
     from typing import final
@@ -288,7 +292,7 @@ class Metric(Generic[R]):
         self.evaluation_scores = []
         for d_ix, data_batch in enumerate(batch_generator):
             data_batch = self.batch_preprocess(data_batch)
-            result = self.evaluate_batch(**data_batch)
+            result = self.evaluate_batch(**data_batch, channel_first=channel_first)
             self.evaluation_scores.extend(result)
 
         # Call post-processing.
@@ -419,11 +423,11 @@ class Metric(Generic[R]):
             A general preprocess.
 
         """
-
         # Reshape input batch to channel first order:
         if not isinstance(channel_first, bool):  # None is not a boolean instance.
             channel_first = utils.infer_channel_first(x_batch)
-        x_batch = utils.make_channel_first(x_batch, channel_first)
+        if channel_first:
+            x_batch = utils.make_channel_first(x_batch, channel_first)
 
         if model is not None:
             # Use attribute value if not passed explicitly.
@@ -825,7 +829,6 @@ class Metric(Generic[R]):
         data_batch:
             Dictionary, which is ready to be passed down to `self.evaluate_batch`.
         """
-
         x_batch = data_batch["x_batch"]
 
         a_batch = data_batch.get("a_batch")

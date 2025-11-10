@@ -6,6 +6,10 @@
 # You should have received a copy of the GNU Lesser General Public License along with Quantus. If not, see <https://www.gnu.org/licenses/>.
 # Quantus project URL: <https://github.com/understandable-machine-intelligence-lab/Quantus>.
 
+import sys
+
+sys.path.append("quotient_game_paper/")
+
 import copy
 import re
 from importlib import util
@@ -16,15 +20,15 @@ from skimage.segmentation import slic, felzenszwalb
 import skimage
 import math
 
-from quantus.helpers import asserts
-from quantus.helpers.model.model_interface import ModelInterface
+from Quantusmain.quantus.helpers import asserts
+from Quantusmain.quantus.helpers.model.model_interface import ModelInterface
 
 if util.find_spec("torch"):
     import torch
-    from quantus.helpers.model.pytorch_model import PyTorchModel
+    from Quantusmain.quantus.helpers.model.pytorch_model import PyTorchModel
 if util.find_spec("tensorflow"):
     import tensorflow as tf
-    from quantus.helpers.model.tf_model import TensorFlowModel
+    from Quantusmain.quantus.helpers.model.tf_model import TensorFlowModel
 
 
 def get_superpixel_segments(img: np.ndarray, segmentation_method: str) -> np.ndarray:
@@ -535,7 +539,7 @@ def create_patch_slice(patch_size: Union[int, Sequence[int]], coords: Sequence[i
     return tuple(patch_slice)
 
 
-def get_block_indices(x_batch: np.array, patch_size: int) -> np.array:
+def get_block_indices(x_batch: np.array, patch_size: int, channel_first:bool = True) -> np.array:
     """
     Get blocks for a batch of images using a certain patch_size.
 
@@ -556,15 +560,22 @@ def get_block_indices(x_batch: np.array, patch_size: int) -> np.array:
         [np.arange(x.size) for x in x_batch],
         axis=0,
     ).reshape(*x_batch.shape)
-    blocks = skimage.util.view_as_blocks(x_indices, (*x_batch.shape[:2], patch_size, patch_size))
-    blocks_h, blocks_w = blocks.shape[2:4]
+    if channel_first:
+        blocks = skimage.util.view_as_blocks(x_indices, (*x_batch.shape[:2], patch_size, patch_size))
+        blocks_h, blocks_w = blocks.shape[2:4]
+    else:
+        blocks = skimage.util.view_as_blocks(x_indices, (x_batch.shape[0], patch_size, patch_size, x_batch.shape[-1]))
+        blocks_h, blocks_w = blocks.shape[1:3]
+    
     block_indices = np.stack(
         np.unravel_index(list(range(blocks_h * blocks_w)), shape=(blocks_h, blocks_w)),
         axis=1,
     )
-
     for block_index in block_indices:
-        yield blocks[0, 0, block_index[0], block_index[1]].reshape(batch_size, -1)
+        if channel_first:
+            yield blocks[0, 0, block_index[0], block_index[1]].reshape(batch_size, -1)
+        else:
+            yield blocks[0, block_index[0], block_index[1],0].reshape(batch_size, -1)
 
 
 def get_nr_patches(patch_size: Union[int, Sequence[int]], shape: Tuple[int, ...], overlap: bool = False) -> int:
