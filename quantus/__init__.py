@@ -8,22 +8,22 @@
 __version__ = "0.6.0"
 
 # Expose quantus.evaluate to the user.
-from quantus.evaluation import evaluate
+from Quantusmain.quantus.evaluation import evaluate
 
 # Expose quantus.explain to the user.
-from quantus.functions.explanation_func import explain
+from Quantusmain.quantus.functions.explanation_func import explain
 
 # Expose quantus.<function-class>.<function-name> to the user.
-from quantus.functions import *
+from Quantusmain.quantus.functions import *
 
 # Expose quantus.<metric> to the user.
-from quantus.metrics import *
+from Quantusmain.quantus.metrics import *
 
 # Expose quantus.helpers.constants to the user.
-from quantus.helpers.constants import *
+from Quantusmain.quantus.helpers.constants import *
 
 # Expose the model interfaces.
-from quantus.helpers.model import *
+from Quantusmain.quantus.helpers.model import *
 
 # Expose the helpers utils.
-from quantus.helpers.utils import *
+from Quantusmain.quantus.helpers.utils import *

@@ -16,21 +16,21 @@ if TYPE_CHECKING:
 
 import sys
 
-from quantus.functions.normalise_func import normalise_by_average_second_moment_estimate
-from quantus.functions.perturb_func import batch_uniform_noise
-from quantus.helpers.enums import (
+from Quantusmain.quantus.functions.normalise_func import normalise_by_average_second_moment_estimate
+from Quantusmain.quantus.functions.perturb_func import batch_uniform_noise
+from Quantusmain.quantus.helpers.enums import (
     DataType,
     EvaluationCategory,
     ModelType,
     ScoreDirection,
 )
-from quantus.helpers.model.model_interface import ModelInterface
-from quantus.helpers.perturbation_utils import (
+from Quantusmain.quantus.helpers.model.model_interface import ModelInterface
+from Quantusmain.quantus.helpers.perturbation_utils import (
     make_changed_prediction_indices_func,
     make_perturb_func,
 )
-from quantus.helpers.warn import warn_parameterisation
-from quantus.metrics.base import Metric
+from Quantusmain.quantus.helpers.warn import warn_parameterisation
+from Quantusmain.quantus.metrics.base import Metric
 
 if sys.version_info >= (3, 8):
     from typing import final

@@ -11,13 +11,13 @@ from importlib import util
 from typing import Optional, Union, Callable
 
 import numpy as np
-import quantus
+import Quantusmain.quantus
 import scipy
 
-from quantus.helpers import constants
-from quantus.helpers import __EXTRAS__
-from quantus.helpers.model.model_interface import ModelInterface
-from quantus.helpers.utils import (
+from Quantusmain.quantus.helpers import constants
+from Quantusmain.quantus.helpers import __EXTRAS__
+from Quantusmain.quantus.helpers.model.model_interface import ModelInterface
+from Quantusmain.quantus.helpers.utils import (
     get_baseline_value,
     infer_channel_first,
     make_channel_last,

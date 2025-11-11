@@ -25,19 +25,19 @@ import numpy as np
 from tqdm.auto import tqdm
 from sklearn.utils import gen_batches
 
-from quantus.functions.similarity_func import correlation_spearman
-from quantus.functions.complexity_func import discrete_entropy, entropy
-from quantus.functions.normalise_func import normalise_by_average_second_moment_estimate
-from quantus.functions import n_bins_func
-from quantus.helpers import asserts, warn, utils
-from quantus.helpers.enums import (
+from Quantusmain.quantus.functions.similarity_func import correlation_spearman
+from Quantusmain.quantus.functions.complexity_func import discrete_entropy, entropy
+from Quantusmain.quantus.functions.normalise_func import normalise_by_average_second_moment_estimate
+from Quantusmain.quantus.functions import n_bins_func
+from Quantusmain.quantus.helpers import asserts, warn, utils
+from Quantusmain.quantus.helpers.enums import (
     DataType,
     EvaluationCategory,
     ModelType,
     ScoreDirection,
 )
-from quantus.helpers.model.model_interface import ModelInterface
-from quantus.metrics.base import Metric
+from Quantusmain.quantus.helpers.model.model_interface import ModelInterface
+from Quantusmain.quantus.metrics.base import Metric
 
 if sys.version_info >= (3, 8):
     from typing import final

@@ -11,16 +11,16 @@ from typing import Any, Callable, Dict, List, Optional, no_type_check
 
 import numpy as np
 
-from quantus.functions.discretise_func import top_n_sign
-from quantus.helpers.model.model_interface import ModelInterface
-from quantus.helpers import warn
-from quantus.helpers.enums import (
+from Quantusmain.quantus.functions.discretise_func import top_n_sign
+from Quantusmain.quantus.helpers.model.model_interface import ModelInterface
+from Quantusmain.quantus.helpers import warn
+from Quantusmain.quantus.helpers.enums import (
     DataType,
     EvaluationCategory,
     ModelType,
     ScoreDirection,
 )
-from quantus.metrics.base import Metric
+from Quantusmain.quantus.metrics.base import Metric
 
 if sys.version_info >= (3, 8):
     from typing import final

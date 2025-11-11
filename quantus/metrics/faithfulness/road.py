@@ -11,17 +11,17 @@ from typing import Any, Callable, Dict, List, Optional
 
 import numpy as np
 
-from quantus.functions.perturb_func import noisy_linear_imputation
-from quantus.helpers import warn
-from quantus.helpers.enums import (
+from Quantusmain.quantus.functions.perturb_func import noisy_linear_imputation
+from Quantusmain.quantus.helpers import warn
+from Quantusmain.quantus.helpers.enums import (
     DataType,
     EvaluationCategory,
     ModelType,
     ScoreDirection,
 )
-from quantus.helpers.model.model_interface import ModelInterface
-from quantus.helpers.perturbation_utils import make_perturb_func
-from quantus.metrics.base import Metric
+from Quantusmain.quantus.helpers.model.model_interface import ModelInterface
+from Quantusmain.quantus.helpers.perturbation_utils import make_perturb_func
+from Quantusmain.quantus.metrics.base import Metric
 
 if sys.version_info >= (3, 8):
     from typing import final
@@ -289,6 +289,7 @@ class ROAD(Metric[List[float]]):
         x_batch: np.ndarray,
         y_batch: np.ndarray,
         a_batch: np.ndarray,
+        channel_first: bool = True,
         **kwargs,
     ) -> List[List[float]]:
         """
@@ -333,13 +334,14 @@ class ROAD(Metric[List[float]]):
                 x_perturbed_element = self.perturb_func(  # type: ignore
                     arr=x_element,
                     indices=top_k_index,
+                    channel_first = channel_first
                 )
                 x_perturbed.append(x_perturbed_element)
                 warn.warn_perturbation_caused_no_change(x=x_element, x_perturbed=x_perturbed)
             x_perturbed = np.stack(x_perturbed, axis=0)
 
             # Predict on perturbed input x and store the difference from predicting on unperturbed input.
-            x_input = model.shape_input(x_perturbed, x_batch.shape, channel_first=True, batched=True)
+            x_input = model.shape_input(x_perturbed, x_batch.shape, channel_first=channel_first, batched=True)
             class_pred_perturb = np.argmax(model.predict(x_input), axis=-1)
 
             # Write a boolean into the percentage results.

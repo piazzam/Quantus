@@ -9,12 +9,12 @@ similarity-, normalisation- functions and explanation methods in Quantus."""
 
 import sys
 from typing import List, Dict, Mapping, Type
-from quantus.functions.loss_func import *
-from quantus.functions.normalise_func import *
-from quantus.functions.perturb_func import *
-from quantus.functions.similarity_func import *
-from quantus.functions import n_bins_func
-from quantus.metrics import *
+from Quantusmain.quantus.functions.loss_func import *
+from Quantusmain.quantus.functions.normalise_func import *
+from Quantusmain.quantus.functions.perturb_func import *
+from Quantusmain.quantus.functions.similarity_func import *
+from Quantusmain.quantus.functions import n_bins_func
+from Quantusmain.quantus.metrics import *
 
 if sys.version_info >= (3, 8):
     from typing import Final

@@ -11,7 +11,7 @@ import warnings
 
 import numpy as np
 
-from quantus.helpers.utils import get_name
+from Quantusmain.quantus.helpers.utils import get_name
 
 
 def check_kwargs(kwargs):

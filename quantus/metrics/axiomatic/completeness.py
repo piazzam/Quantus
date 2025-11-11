@@ -11,18 +11,18 @@ from typing import Any, Callable, Dict, List, Optional
 
 import numpy as np
 
-from quantus.functions.perturb_func import batch_baseline_replacement_by_indices
-from quantus.helpers import warn
-from quantus.helpers.enums import (
+from Quantusmain.quantus.functions.perturb_func import batch_baseline_replacement_by_indices
+from Quantusmain.quantus.helpers import warn
+from Quantusmain.quantus.helpers.enums import (
     DataType,
     EvaluationCategory,
     ModelType,
     ScoreDirection,
 )
-from quantus.helpers.model.model_interface import ModelInterface
-from quantus.helpers.perturbation_utils import make_perturb_func
-from quantus.metrics.base import Metric
-from quantus.helpers.utils import identity
+from Quantusmain.quantus.helpers.model.model_interface import ModelInterface
+from Quantusmain.quantus.helpers.perturbation_utils import make_perturb_func
+from Quantusmain.quantus.metrics.base import Metric
+from Quantusmain.quantus.helpers.utils import identity
 
 if sys.version_info >= (3, 8):
     from typing import final

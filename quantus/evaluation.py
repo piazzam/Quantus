@@ -12,11 +12,11 @@ from typing import Union, Callable, Dict, Optional, Any
 import numpy as np
 import pandas as pd
 
-from quantus.helpers import asserts
-from quantus.helpers import utils
-from quantus.helpers import warn
-from quantus.helpers.model.model_interface import ModelInterface
-from quantus.functions.explanation_func import explain
+from Quantusmain.quantus.helpers import asserts
+from Quantusmain.quantus.helpers import utils
+from Quantusmain.quantus.helpers import warn
+from Quantusmain.quantus.helpers.model.model_interface import ModelInterface
+from Quantusmain.quantus.functions.explanation_func import explain
 
 
 def evaluate(

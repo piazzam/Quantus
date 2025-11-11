@@ -23,22 +23,22 @@ from typing import (
 from importlib import util
 
 import numpy as np
-import quantus
+import Quantusmain.quantus
 from tqdm.auto import tqdm
 from sklearn.utils import gen_batches
 from scipy import stats
 
-from quantus.functions.similarity_func import correlation_spearman
-from quantus.functions.normalise_func import normalise_by_average_second_moment_estimate
-from quantus.helpers import asserts, warn, utils
-from quantus.helpers.enums import (
+from Quantusmain.quantus.functions.similarity_func import correlation_spearman
+from Quantusmain.quantus.functions.normalise_func import normalise_by_average_second_moment_estimate
+from Quantusmain.quantus.helpers import asserts, warn, utils
+from Quantusmain.quantus.helpers.enums import (
     DataType,
     EvaluationCategory,
     ModelType,
     ScoreDirection,
 )
-from quantus.helpers.model.model_interface import ModelInterface
-from quantus.metrics.base import Metric
+from Quantusmain.quantus.helpers.model.model_interface import ModelInterface
+from Quantusmain.quantus.metrics.base import Metric
 
 if sys.version_info >= (3, 8):
     from typing import final

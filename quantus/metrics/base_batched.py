@@ -7,7 +7,7 @@
 import abc
 import logging
 
-from quantus.metrics.base import Metric
+from Quantusmain.quantus.metrics.base import Metric
 
 """Aliases to smoothen transition to uniform metric API."""
 

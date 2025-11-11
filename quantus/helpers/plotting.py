@@ -11,7 +11,7 @@ from typing import List, Union, Dict, Any
 import matplotlib.pyplot as plt
 import numpy as np
 
-from quantus.helpers import warn
+from Quantusmain.quantus.helpers import warn
 
 
 def plot_pixel_flipping_experiment(

@@ -4,19 +4,19 @@
 # You should have received a copy of the GNU Lesser General Public License along with Quantus. If not, see <https://www.gnu.org/licenses/>.
 # Quantus project URL: <https://github.com/understandable-machine-intelligence-lab/Quantus>.
 
-from quantus.metrics.faithfulness.faithfulness_correlation import (
+from Quantusmain.quantus.metrics.faithfulness.faithfulness_correlation import (
     FaithfulnessCorrelation,
 )
-from quantus.metrics.faithfulness.faithfulness_estimate import FaithfulnessEstimate
-from quantus.metrics.faithfulness.infidelity import Infidelity
-from quantus.metrics.faithfulness.irof import IROF
-from quantus.metrics.faithfulness.monotonicity import Monotonicity
-from quantus.metrics.faithfulness.monotonicity_correlation import (
+from Quantusmain.quantus.metrics.faithfulness.faithfulness_estimate import FaithfulnessEstimate
+from Quantusmain.quantus.metrics.faithfulness.infidelity import Infidelity
+from Quantusmain.quantus.metrics.faithfulness.irof import IROF
+from Quantusmain.quantus.metrics.faithfulness.monotonicity import Monotonicity
+from Quantusmain.quantus.metrics.faithfulness.monotonicity_correlation import (
     MonotonicityCorrelation,
 )
-from quantus.metrics.faithfulness.pixel_flipping import PixelFlipping
-from quantus.metrics.faithfulness.region_perturbation import RegionPerturbation
-from quantus.metrics.faithfulness.road import ROAD
-from quantus.metrics.faithfulness.selectivity import Selectivity
-from quantus.metrics.faithfulness.sensitivity_n import SensitivityN
-from quantus.metrics.faithfulness.sufficiency import Sufficiency, BatchSufficiency
+from Quantusmain.quantus.metrics.faithfulness.pixel_flipping import PixelFlipping
+from Quantusmain.quantus.metrics.faithfulness.region_perturbation import RegionPerturbation
+from Quantusmain.quantus.metrics.faithfulness.road import ROAD
+from Quantusmain.quantus.metrics.faithfulness.selectivity import Selectivity
+from Quantusmain.quantus.metrics.faithfulness.sensitivity_n import SensitivityN
+from Quantusmain.quantus.metrics.faithfulness.sufficiency import Sufficiency, BatchSufficiency

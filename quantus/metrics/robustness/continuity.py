@@ -11,18 +11,18 @@ from typing import Any, Callable, Dict, List, Optional
 
 import numpy as np
 
-from quantus.functions.perturb_func import batched_translation
-from quantus.functions.similarity_func import distance_euclidean, distance_manhattan
-from quantus.helpers import asserts, utils, warn
-from quantus.helpers.enums import (
+from Quantusmain.quantus.functions.perturb_func import batched_translation
+from Quantusmain.quantus.functions.similarity_func import distance_euclidean, distance_manhattan
+from Quantusmain.quantus.helpers import asserts, utils, warn
+from Quantusmain.quantus.helpers.enums import (
     DataType,
     EvaluationCategory,
     ModelType,
     ScoreDirection,
 )
-from quantus.helpers.model.model_interface import ModelInterface
-from quantus.helpers.perturbation_utils import make_perturb_func
-from quantus.metrics.base import Metric
+from Quantusmain.quantus.helpers.model.model_interface import ModelInterface
+from Quantusmain.quantus.helpers.perturbation_utils import make_perturb_func
+from Quantusmain.quantus.metrics.base import Metric
 
 if sys.version_info >= (3, 8):
     from typing import final

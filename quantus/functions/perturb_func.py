@@ -16,7 +16,7 @@ import numpy as np
 from scipy.sparse import lil_matrix, csc_matrix
 from scipy.sparse.linalg import spsolve
 
-from quantus.helpers.utils import (
+from Quantusmain.quantus.helpers.utils import (
     get_baseline_value,
     blur_at_indices,
     expand_indices,
@@ -711,6 +711,7 @@ def noisy_linear_imputation(
     arr: np.array,
     indices: Union[Sequence[int], Tuple[np.array]],
     noise: float = 0.01,
+    channel_first: bool = True,
     **kwargs,
 ) -> np.array:
     """
@@ -747,7 +748,10 @@ def noisy_linear_imputation(
         ((1, 0), 1 / 6),
         ((-1, 0), 1 / 6),
     ]
-    arr_flat = arr.reshape((arr.shape[0], -1))
+    if channel_first:
+        arr_flat = arr.reshape((arr.shape[0], -1))
+    else:
+        arr_flat = arr.reshape((arr.shape[2], -1))
 
     mask = np.ones(arr_flat.shape[1])
     mask[indices] = 0
@@ -759,7 +763,10 @@ def noisy_linear_imputation(
     a = lil_matrix((len(indices), len(indices)))
 
     # Equation system right-hand side.
-    b = np.zeros((len(indices), arr.shape[0]))
+    if channel_first:
+        b = np.zeros((len(indices), arr.shape[0]))
+    else:
+        b = np.zeros((len(indices), arr.shape[2]))
 
     sum_neighbors = np.ones(len(indices))
 
@@ -788,7 +795,10 @@ def noisy_linear_imputation(
     res = np.transpose(spsolve(csc_matrix(a), b))
 
     # Fill the values with the solution of the system.
-    arr_flat_copy = np.copy(arr.reshape((arr.shape[0], -1)))
+    if channel_first:
+        arr_flat_copy = np.copy(arr.reshape((arr.shape[0], -1)))
+    else:
+        arr_flat_copy = np.copy(arr.reshape((arr.shape[2], -1)))
     arr_flat_copy[:, indices] = res + noise * np.random.randn(*res.shape)
 
     return arr_flat_copy.reshape(*arr.shape)

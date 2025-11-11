@@ -11,16 +11,16 @@ from typing import Any, Callable, Dict, List, Optional
 
 import numpy as np
 
-from quantus.functions.similarity_func import ssim
-from quantus.helpers import asserts, warn
-from quantus.helpers.enums import (
+from Quantusmain.quantus.functions.similarity_func import ssim
+from Quantusmain.quantus.helpers import asserts, warn
+from Quantusmain.quantus.helpers.enums import (
     DataType,
     EvaluationCategory,
     ModelType,
     ScoreDirection,
 )
-from quantus.helpers.model.model_interface import ModelInterface
-from quantus.metrics.base import Metric
+from Quantusmain.quantus.helpers.model.model_interface import ModelInterface
+from Quantusmain.quantus.metrics.base import Metric
 
 if sys.version_info >= (3, 8):
     from typing import final
