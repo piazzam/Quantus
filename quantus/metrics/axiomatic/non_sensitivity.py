@@ -314,6 +314,8 @@ class NonSensitivity(Metric[List[float]]):
              The evaluation results.
         """
 
+        channel_first = kwargs['channel_first']
+
         # Prepare shapes. Expand a_batch if not the same shape
         if x_batch.shape != a_batch.shape:
             a_batch = np.broadcast_to(a_batch, x_batch.shape)
@@ -325,7 +327,7 @@ class NonSensitivity(Metric[List[float]]):
 
         non_features = a_batch < self.eps
 
-        x_input = model.shape_input(x_batch, x_batch.shape, channel_first=True, batched=True)
+        x_input = model.shape_input(x_batch, x_batch.shape, channel_first=channel_first, batched=True)
         y_pred = model.predict(x_input)[np.arange(batch_size), y_batch]
 
         # Prepare lists.
@@ -347,7 +349,7 @@ class NonSensitivity(Metric[List[float]]):
             x_perturbed = x_perturbed.reshape(*x_batch_shape)
 
             # Predict on perturbed input x.
-            x_input = model.shape_input(x_perturbed, x_batch.shape, channel_first=True, batched=True)
+            x_input = model.shape_input(x_perturbed, x_batch.shape, channel_first=channel_first, batched=True)
             y_pred_perturb = model.predict(x_input)[np.arange(batch_size), y_batch]
             preds.append(y_pred_perturb)
         preds = np.stack(preds, axis=1)
