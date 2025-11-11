@@ -889,6 +889,7 @@ class Metric(Generic[R]):
         model: Union[ModelInterface, keras.Model, nn.Module],
         x_batch: np.ndarray,
         y_batch: np.ndarray,
+        channel_first: bool = True,
     ) -> np.ndarray:
         """
         Compute explanations, normalise and take absolute (if was configured so during metric initialization.)
@@ -923,7 +924,7 @@ class Metric(Generic[R]):
             x_batch = model.shape_input(
                 x=x_batch,
                 shape=x_batch.shape,
-                channel_first=True,
+                channel_first=channel_first,
                 batched=True,
             )
             model = model.get_model()

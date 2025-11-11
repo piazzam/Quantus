@@ -320,6 +320,7 @@ class MaxSensitivity(Metric[List[float]]):
         scores_batch: np.ndarray
             The batched evaluation results.
         """
+        channel_first = kwargs['channel_first']
         batch_size = x_batch.shape[0]
         a_batch = a_batch.reshape(batch_size, -1)
         similarities = np.zeros((batch_size, self.nr_samples)) * np.nan
@@ -340,7 +341,7 @@ class MaxSensitivity(Metric[List[float]]):
                 )
 
             # Generate explanation based on perturbed input x.
-            a_perturbed = self.explain_batch(model, x_perturbed, y_batch)
+            a_perturbed = self.explain_batch(model, x_perturbed, y_batch, channel_first=channel_first)
             a_perturbed = a_perturbed.reshape(batch_size, -1)
 
             # Measure similarity for each instance separately.
