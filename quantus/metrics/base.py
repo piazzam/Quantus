@@ -291,7 +291,7 @@ class Metric(Generic[R]):
 
         self.evaluation_scores = []
         for d_ix, data_batch in enumerate(batch_generator):
-            data_batch = self.batch_preprocess(data_batch)
+            data_batch = self.batch_preprocess(data_batch, channel_first=channel_first)
             result = self.evaluate_batch(**data_batch, channel_first=channel_first)
             self.evaluation_scores.extend(result)
 
@@ -813,7 +813,7 @@ class Metric(Generic[R]):
         return {k: v for k, v in self.__dict__.items() if k not in attr_exclude}
 
     @final
-    def batch_preprocess(self, data_batch: Dict[str, Any]) -> Dict[str, Any]:
+    def batch_preprocess(self, data_batch: Dict[str, Any], channel_first:bool = True) -> Dict[str, Any]:
         """
         If `data_batch` has no `a_batch`, will compute explanations.
         This needs to be done on batch level to avoid OOM. Additionally will set `a_axes` property if it is None,
@@ -843,7 +843,7 @@ class Metric(Generic[R]):
         if self.a_axes is None:
             self.a_axes = utils.infer_attribution_axes(a_batch, x_batch)
 
-        custom_batch = self.custom_batch_preprocess(**data_batch)
+        custom_batch = self.custom_batch_preprocess(channel_first=channel_first,**data_batch)
         if custom_batch is not None:
             data_batch.update(custom_batch)
         return data_batch
@@ -855,6 +855,7 @@ class Metric(Generic[R]):
         x_batch: np.ndarray,
         y_batch: np.ndarray,
         a_batch: np.ndarray,
+        channel_first: bool = True,
         **kwargs,
     ) -> Optional[Dict[str, Any]]:
         """

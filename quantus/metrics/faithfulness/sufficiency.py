@@ -250,7 +250,7 @@ class BatchSufficiency(Metric[List[float]]):
         )
 
     def custom_batch_preprocess(
-        self, model: ModelInterface, x_batch: np.ndarray, a_batch: np.ndarray, **kwargs
+        self, model: ModelInterface, x_batch: np.ndarray, a_batch: np.ndarray, channel_first, **kwargs
     ) -> Dict[str, np.ndarray]:
         """Compute additional arguments required for Sufficiency evaluation on batch-level."""
 
@@ -261,7 +261,7 @@ class BatchSufficiency(Metric[List[float]]):
         a_sim_matrix[dist_matrix <= self.threshold] = 1
 
         # Predict on input.
-        x_input = model.shape_input(x_batch, x_batch[0].shape, channel_first=True, batched=True)
+        x_input = model.shape_input(x_batch, x_batch[0].shape, channel_first=channel_first, batched=True)
         y_pred_classes = np.argmax(model.predict(x_input), axis=1).flatten()
 
         return {
@@ -530,7 +530,7 @@ class Sufficiency(Metric[List[float]]):
         )
 
     def custom_batch_preprocess(
-        self, model: ModelInterface, x_batch: np.ndarray, a_batch: np.ndarray, **kwargs
+        self, model: ModelInterface, x_batch: np.ndarray, a_batch: np.ndarray, channel_first:bool, **kwargs
     ) -> Dict[str, np.ndarray]:
         """Compute additional arguments required for Sufficiency evaluation on batch-level."""
 
@@ -541,7 +541,7 @@ class Sufficiency(Metric[List[float]]):
         a_sim_matrix[dist_matrix <= self.threshold] = 1
 
         # Predict on input.
-        x_input = model.shape_input(x_batch, x_batch.shape, channel_first=True, batched=True)
+        x_input = model.shape_input(x_batch, x_batch.shape, channel_first=channel_first, batched=True)
         y_pred_classes = np.argmax(model.predict(x_input), axis=1).flatten()
 
         return {
