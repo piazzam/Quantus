@@ -270,6 +270,7 @@ class InputInvariance(Metric[List[float]]):
         scores_batch: np.ndarray
             The evaluation results.
         """
+        channel_first = kwargs['channel_first']
         batch_size = x_batch.shape[0]
 
         # Perturb the batched input.
@@ -285,7 +286,7 @@ class InputInvariance(Metric[List[float]]):
         x_shifted = model.shape_input(
             x=x_shifted,
             shape=x_shifted.shape,
-            channel_first=True,
+            channel_first=channel_first,
             batched=True,
         )
 

@@ -336,8 +336,10 @@ class TensorFlowModel(ModelInterface[Model]):
         new_model = clone_model(self.model)
         new_model.set_weights(original_parameters)
 
-        module = new_model.layers[0]
-        tmp_model = Model(inputs=[new_model.input], outputs=[new_model.layers[0].output])
+        #module = new_model.layers[0]
+        module = new_model.layers[1]
+        tmp_model = Model(inputs=[new_model.input], outputs=[new_model.layers[1].output])
+        #tmp_model = Model(inputs=[new_model.input], outputs=[new_model.layers[1].output])
 
         delta = np.zeros(shape=shape)
         delta.fill(input_shift)
