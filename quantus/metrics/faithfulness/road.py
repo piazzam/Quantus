@@ -314,9 +314,14 @@ class ROAD(Metric[List[float]]):
         scores_batch:
             The evaluation results.
         """
+
         # Prepare shapes. Expand a_batch if not the same shape
-        if x_batch.shape != a_batch.shape:
-            a_batch = np.broadcast_to(a_batch, x_batch.shape)
+        if channel_first:
+            if (x_batch.shape[2] != a_batch.shape[2]) or (x_batch.shape[3] != a_batch.shape[3]):
+                a_batch = np.broadcast_to(a_batch, x_batch.shape)
+        else:
+            if (x_batch.shape[1] != a_batch.shape[1]) or (x_batch.shape[2] != a_batch.shape[2]):
+                a_batch = np.broadcast_to(a_batch, x_batch.shape)
 
         # Flatten the attributions.
         batch_size = a_batch.shape[0]
